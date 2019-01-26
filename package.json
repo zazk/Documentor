@@ -1,0 +1,17 @@
+{
+  "name": "documentor",
+  "version": "0.0.1",
+  "description": "Contractor Manager",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "juandedioz@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
