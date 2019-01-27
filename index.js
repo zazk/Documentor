@@ -1,17 +1,33 @@
 const express = require("express");
-const app = express();
+const config = require("./config");
+const api = express();
 const router = express.Router();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use("/api", router);
+api.use(express.urlencoded({ extended: false }));
+api.use(express.json());
+api.use("/api", router);
 
-app.listen(3000, () => {
+api.use((err, req, res, next) => {
+  console.error(err.stack);
+  next(err);
+});
+api.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500);
+  res.render("error", { error: err });
+});
+
+api.listen(config.server.port, err => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
   require("./db");
+  require("./routes/contact")(api);
   console.log("listening on http://localhost:3000");
 });
 
-app.get("/", (_, res) => {
+api.get("/", (_, res) => {
   res.send("Hi awesome world");
 });
 
