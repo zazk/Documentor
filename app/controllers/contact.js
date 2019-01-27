@@ -2,8 +2,8 @@ const Contact = require("../models/contact");
 
 exports.list = (req, res) => {
   const query = req.query || {};
-  Contact.apiQuery(query)
-    .select("name email")
+  Contact.find(query)
+    .select("id name email")
     .then(contacts => {
       res.json(contacts);
     })
@@ -42,7 +42,8 @@ exports.put = (req, res) => {
 
 exports.post = (req, res) => {
   const data = Object.assign({}, req.body) || {};
-  Contact.create(data)
+  // To avoid duplicate records. You can use Contact.create and validate manually duplicate.
+  Contact.findOneAndUpdate(data, data, { new: true, upsert: true })
     .then(contact => {
       res.json(contact);
     })
@@ -54,7 +55,7 @@ exports.post = (req, res) => {
 
 exports.delete = (req, res) => {
   Contact.findByIdAndUpdate(
-    { _id: req.params.contact },
+    { _id: req.params.contactId },
     { active: false },
     {
       new: true

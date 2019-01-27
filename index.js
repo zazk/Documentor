@@ -1,5 +1,5 @@
 const express = require("express");
-const config = require("./config");
+const config = require("./app/config");
 const api = express();
 const router = express.Router();
 
@@ -22,8 +22,8 @@ api.listen(config.server.port, err => {
     console.error(err);
     process.exit(1);
   }
-  require("./db");
-  require("./routes/contact")(api);
+  require("./app/db");
+  require("./app/routes/contact")(api);
   console.log("listening on http://localhost:3000");
 });
 
@@ -39,8 +39,4 @@ router.get("/api", (_, res) => {
   res.send("Here your api works");
 });
 
-router.post("/contractors", (req, res) => {
-  const data = req.body;
-  console.log(data);
-  res.send(req.body);
-});
+module.exports = api;

@@ -5,9 +5,8 @@ const mongo = mongoose.connection;
 mongoose.Promise = global.Promise;
 const conn = mongoose.connect(
   config.database.url,
-  { useNewUrlParser: true }
+  { useCreateIndex: true, useNewUrlParser: true }
 );
-mongoose.set("useCreateIndex", true);
 
 mongo.on("connected", () => console.log(`DB Connected in ${config.env} mode`));
 mongo.on("error", err => {

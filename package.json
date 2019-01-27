@@ -4,6 +4,7 @@
   "description": "Contractor Manager",
   "main": "index.js",
   "scripts": {
+    "test": "mocha tests/**/*.test.js --reporter spec  --timeout 10000",
     "dev": "nodemon index.js"
   },
   "author": "juandedioz@gmail.com",
@@ -15,6 +16,11 @@
     "mongoose": "^5.4.7"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "sinon": "^7.2.3",
+    "sinon-mongoose": "^2.2.1"
   }
 }
