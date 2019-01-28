@@ -1,15 +1,37 @@
 const Contact = require("../models/contact");
 
-exports.list = (req, res) => {
-  const query = req.query || {};
+const queryContact = (res, query = {}) => {
   Contact.find(query)
-    .select("id name email")
+    .select("id name email city, state")
     .then(contacts => {
       res.json(contacts);
     })
     .catch(err => {
       console.error(err);
       res.status(422).send(err.errors);
+    });
+};
+
+exports.list = (_, res) => {
+  queryContact(res);
+};
+
+exports.query = (req, res) => {
+  const query = req.query || {};
+  console.log(req.query);
+  queryContact(res, query);
+};
+
+exports.post = (req, res) => {
+  const data = Object.assign({}, req.body) || {};
+  // To avoid duplicate records. You can use Contact.create and validate manually duplicate.
+  Contact.findOneAndUpdate(data, data, { new: true, upsert: true })
+    .then(contact => {
+      res.json(contact);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send(err);
     });
 };
 
