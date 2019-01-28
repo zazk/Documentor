@@ -24,7 +24,7 @@ api.listen(config.server.port, err => {
   }
   require("./app/db");
   require("./app/routes/contact")(api);
-  console.log("listening on http://localhost:3000");
+  console.log("listening on http://localhost:" + config.server.port);
 });
 
 api.get("/", (_, res) => {
