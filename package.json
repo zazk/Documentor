@@ -4,6 +4,7 @@
   "description": "Contractor Manager",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha tests/**/*.test.js --reporter spec  --timeout 10000",
     "dev": "nodemon index.js"
   },
