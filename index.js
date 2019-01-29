@@ -2,6 +2,7 @@ const express = require("express");
 const config = require("./app/config");
 const api = express();
 const router = express.Router();
+const port = process.env.PORT || config.server.port;
 
 api.use(express.urlencoded({ extended: false }));
 api.use(express.json());
@@ -17,7 +18,7 @@ api.use((err, req, res, next) => {
   res.render("error", { error: err });
 });
 
-api.listen(config.server.port, err => {
+api.listen(port, err => {
   if (err) {
     console.error(err);
     process.exit(1);
